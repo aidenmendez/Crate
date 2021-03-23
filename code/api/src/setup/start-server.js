@@ -1,3 +1,6 @@
+// I think this is what is allowing us to start the server from the terminal
+
+// Using PORT NODE_ENV
 // App Imports
 import { PORT, NODE_ENV } from '../config/env'
 
