@@ -31,7 +31,7 @@ class Detail extends PureComponent {
     this.refresh(this.props.match.params.slug)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (nextProps.match.params.slug !== this.props.match.params.slug) {
       this.refresh(nextProps.match.params.slug)
     }
@@ -42,6 +42,7 @@ class Detail extends PureComponent {
   }
 
   render() {
+    // console.log(this.state)
     const { isLoading, item, error } = this.props.product
 
     return (

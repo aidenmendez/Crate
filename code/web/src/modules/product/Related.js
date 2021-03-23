@@ -15,12 +15,11 @@ import ProductItem from '../product/Item'
 
 // Component
 class Related extends PureComponent {
-
   componentDidMount() {
     this.refresh(this.props.productId)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     if (nextProps.productId !== this.props.productId) {
       this.refresh(nextProps.productId)
     }
@@ -31,26 +30,29 @@ class Related extends PureComponent {
   }
 
   render() {
+
     const { isLoading, list } = this.props.productsRelated
 
     return (
       <div>
         {/* Related product list */}
+        {list ?
         <Grid>
-          {
-            isLoading
-              ? <Loading />
-              : list.length > 0
-                ? list.map(product => (
-                    <GridCell key={product.id} style={{ textAlign: 'center' }}>
-                      <ProductItem product={product}/>
-                    </GridCell>
-                  ))
-                : <GridCell>
-                    <EmptyMessage message="No related products to show." />
-                  </GridCell>
-          }
-        </Grid>
+          {isLoading ? (
+            <Loading />
+          ) : list.length > 0 ? (
+            list.map((product) => (
+              <GridCell key={product.id} style={{ textAlign: "center" }}>
+                <ProductItem product={product} />
+              </GridCell>
+            ))
+          ) : (
+            <GridCell>
+              <EmptyMessage message="No related products to show." />
+            </GridCell>
+          )}
+        </Grid> : <div>no related items found</div>
+        }
       </div>
     )
   }
