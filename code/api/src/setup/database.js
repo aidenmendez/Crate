@@ -1,3 +1,5 @@
+// Creates and tests db connection
+
 // Imports
 import { Sequelize } from 'sequelize'
 
