@@ -1,3 +1,7 @@
+// It looks like this is responsible for initializing everything
+// It probably runs when the server starts
+// I think this is similar to a runner file
+
 // Imports
 import express from 'express'
 
