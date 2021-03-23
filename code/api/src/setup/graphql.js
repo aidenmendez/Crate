@@ -1,3 +1,8 @@
+// I think this is part of GraphQL setup
+// It looks like it is confirming an user exists and is authenticated
+// I'm not sure why we are testing the authentication here and in the other file
+
+
 // Imports
 import graphqlHTTP from 'express-graphql'
 
