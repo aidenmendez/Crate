@@ -1,9 +1,15 @@
+// Determines what to send and what not to send to the client as a response
+
 // App Imports
 import params from '../../config/params'
 import models from '../../setup/models'
 
+// The async and await functions enable asynchronous promise-based behavior to be written in a cleaner style, avoiding the need to explicitly configure promise chains (waits for all promises to be resolved)
+// defines and exports the create function, parentValue is an operation
+
 // Get all products
 export async function getAll() {
+  // await pauses async execution until a promise is resolved
   return await models.Product.findAll({ order: [['id', 'DESC']] })
 }
 
