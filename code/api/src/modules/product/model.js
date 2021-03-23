@@ -1,5 +1,9 @@
+// Strict mode will throw errors if syntax is incorrect
+// This mode also doesn't allow the use of undeclared variables
 'use strict'
 
+// Determines what to export so other files have access
+// Similar to 'require'
 // Product
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('products', {
