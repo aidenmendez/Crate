@@ -1,3 +1,6 @@
+// Creates migrations for each table just like rails
+// Users up and down. Up creates, down deletes (like destroy.all)
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('products', {
