@@ -42,7 +42,6 @@ class Detail extends PureComponent {
   }
 
   render() {
-    // console.log(this.state)
     const { isLoading, item, error } = this.props.product
 
     return (
