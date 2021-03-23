@@ -1,3 +1,6 @@
+// Creates objects for all models using sequelize (Node's ORM)
+// Looks like this is similar to defining a class
+
 // Imports
 import Sequelize from 'sequelize'
 
@@ -11,6 +14,7 @@ const models = {
   Subscription: databaseConnection.import('../modules/subscription/model')
 }
 
+// Some kind of association is being created. Maybe all models are getting associated with each other
 Object.keys(models).forEach(modelName => {
   if (models[modelName].associate) {
     models[modelName].associate(models)
