@@ -1,3 +1,5 @@
+// Looks like a schema
+
 // Imports
 import { GraphQLString, GraphQLInt } from 'graphql'
 
