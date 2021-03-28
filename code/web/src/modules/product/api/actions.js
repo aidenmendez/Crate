@@ -28,6 +28,7 @@ export function getList(isLoading = true, forceRefresh = false) {
       isLoading
     })
 
+    // post response and error handling for bad response
     return axios.post(routeApi, query({
       operation: 'products',
       fields: ['id', 'name', 'slug', 'description', 'image', 'createdAt', 'updatedAt']

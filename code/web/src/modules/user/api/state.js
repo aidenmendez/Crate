@@ -11,6 +11,7 @@ export const userInitialState = {
 }
 
 // State
+// each case returns a new object that updates the store information
 export default (state = userInitialState, action) => {
   switch (action.type) {
     case SET_USER:
