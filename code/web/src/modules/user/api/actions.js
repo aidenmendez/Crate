@@ -17,6 +17,7 @@ export const LOGOUT = 'AUTH/LOGOUT'
 // Set a user after login or using localStorage token
 export function setUser(token, user) {
   if (token) {
+    // axios library is used to interact with endpoints
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
     delete axios.defaults.headers.common['Authorization'];
@@ -33,6 +34,7 @@ export function login(userCredentials, isLoading = true) {
       isLoading
     })
 
+    // post request to graphql data
     return axios.post(routeApi, query({
       operation: 'userLogin',
       variables: userCredentials,
@@ -41,6 +43,7 @@ export function login(userCredentials, isLoading = true) {
       .then(response => {
         let error = ''
 
+        // error handling checking whether error exists or whether user token is empty
         if (response.data.errors && response.data.errors.length > 0) {
           error = response.data.errors[0].message
         } else if (response.data.data.userLogin.token !== '') {
