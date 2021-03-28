@@ -38,6 +38,7 @@ class Login extends Component {
     // Function bindings
   }
 
+  // allows the input field in the form to be updated
   onChange = (event) => {
     let user = this.state.user
     user[event.target.name] = event.target.value
@@ -47,11 +48,13 @@ class Login extends Component {
     })
   }
 
+  // submits form information to parent method
   onSubmit = (event) => {
     event.preventDefault()
 
     this.props.messageShow('Logging in, please wait...')
 
+    // checks whether there's an error to display and hides the message after a timeout 
     this.props.login(this.state.user)
       .then(response => {
         if (this.props.user.error && this.props.user.error.length > 0) {
