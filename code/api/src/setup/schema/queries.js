@@ -4,6 +4,7 @@ import { GraphQLObjectType } from 'graphql'
 // App Imports
 import * as user from '../../modules/user/query'
 import * as product from '../../modules/product/query'
+// import * as userProduct from '../../modules/userProduct/query'
 import * as crate from '../../modules/crate/query'
 import * as subscription from '../../modules/subscription/query'
 
@@ -15,6 +16,7 @@ const query = new GraphQLObjectType({
   fields: () => ({
     ...user,
     ...product,
+    // ...userProduct,
     ...crate,
     ...subscription
   })
