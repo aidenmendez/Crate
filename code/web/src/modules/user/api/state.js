@@ -2,6 +2,8 @@
 import { isEmpty } from '../../../setup/helpers'
 import { SET_USER, LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT } from './actions'
 
+// these files are where we initialize state and designate paths to change them (reducers)
+
 // Initial State
 // this is definitely where we'll be adding our user properties, still unclear on order history (specifically how well be getting that using axios / GraphQL)
 export const userInitialState = {

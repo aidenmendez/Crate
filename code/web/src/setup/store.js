@@ -12,6 +12,7 @@ import * as subscription from '../modules/subscription/api/state'
 import * as crate from '../modules/crate/api/state'
 
 // App Reducer
+// sotring state here, getting reducers from odules
 const appReducer = combineReducers({
   common,
   user,

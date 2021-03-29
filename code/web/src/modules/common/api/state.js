@@ -2,6 +2,7 @@
 import { MESSAGE_SHOW, MESSAGE_HIDE } from './actions'
 
 // Initial State
+
 export const commonInitialState = {
   message: {
     text: null,
