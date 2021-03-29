@@ -20,6 +20,7 @@ export const PRODUCTS_GET_RELATED_LIST_FAILURE = 'PRODUCTS/GET_RELATED_LIST_FAIL
 // Actions
 
 // Get list of products
+// should we alter / copypasta the below function for our edited database tables?
 export function getList(isLoading = true, forceRefresh = false) {
   return dispatch => {
     dispatch({

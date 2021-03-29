@@ -18,6 +18,8 @@ import SubscriptionItem from '../subscription/Item'
 // Component
 class Subscriptions extends PureComponent {
 
+  // will need to look into SSR more using redux, havent seen the below line
+
   // Runs on server only for SSR
   static fetchData({ store }) {
     return store.dispatch(getListByUser())
@@ -75,6 +77,8 @@ Subscriptions.propTypes = {
 }
 
 // Component State
+// This all seems fairly straightforward, we'll have to build a few state setters/getters using the below two blocks as a template for the components we're adding.
+
 function subscriptionsState(state) {
   return {
     subscriptions: state.subscriptionsByUser

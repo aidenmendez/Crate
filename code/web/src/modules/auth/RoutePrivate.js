@@ -8,6 +8,9 @@ import { connect } from 'react-redux'
 import userRoutes from '../../setup/routes/user'
 
 // Component
+// this ternary is a lot,
+// yeah this is confusing, more deep diving needed
+
 const RoutePrivate = (props) => (
   props.user.isAuthenticated
     ? props.role

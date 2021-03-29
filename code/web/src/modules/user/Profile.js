@@ -16,6 +16,7 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
+// we should build out seperate components under this folder for the profile, using the UI imports as above
 const Profile = (props) => (
   <div>
     {/* SEO */}
@@ -49,6 +50,7 @@ const Profile = (props) => (
 // Component Properties
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
+  // what does logout do?
   logout: PropTypes.func.isRequired
 }
 
@@ -59,4 +61,5 @@ function profileState(state) {
   }
 }
 
+// profileState returns the props, connected using Redux here
 export default connect(profileState, { logout })(Profile)

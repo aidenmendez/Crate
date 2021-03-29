@@ -28,6 +28,7 @@ class Login extends Component {
   constructor(props) {
     super(props)
 
+    // state being held locally instead of Redux, probably due to its temporary nature
     this.state = {
       user: {
         email: '',
@@ -48,6 +49,8 @@ class Login extends Component {
   }
 
   onSubmit = (event) => {
+    // i dont believe we'll end up needing to change anything here
+    
     event.preventDefault()
 
     this.props.messageShow('Logging in, please wait...')

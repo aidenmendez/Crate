@@ -88,6 +88,7 @@ export function register(userDetails) {
 }
 
 // Log out user and remove token from localStorage
+// here's logout, dispatches the type and payload which is another function
 export function logout() {
   return dispatch => {
     logoutUnsetUserLocalStorageAndCookie()
@@ -101,6 +102,7 @@ export function logout() {
 // Unset user token and info in localStorage and cookie
 export function logoutUnsetUserLocalStorageAndCookie() {
   // Remove token
+  // uses window object directly, I don't think well have to do much like this.
   window.localStorage.removeItem('token')
   window.localStorage.removeItem('user')
 

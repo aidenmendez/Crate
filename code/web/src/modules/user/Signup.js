@@ -23,6 +23,7 @@ import { register } from './api/actions'
 import AuthCheck from '../auth/AuthCheck'
 
 // Component
+// This component also seems irrelevant to our tasks
 class Signup extends Component {
 
   constructor(props) {
