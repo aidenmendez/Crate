@@ -38,3 +38,8 @@ export const userRemove = {
   },
   resolve: remove
 }
+
+// Update
+//updateUser mutation
+  // implement new mutation for updating user that calls update resolver
+  // returns updated user object

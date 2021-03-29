@@ -28,3 +28,6 @@ export const subscriptionRemove = {
   },
   resolve: remove
 }
+
+// Create an updateSubscription mutation; call subscription update resolver
+  // returns updated subscription object

@@ -2,6 +2,7 @@
 
 // Subscription
 module.exports = function(sequelize, DataTypes) {
+  // add attribute: delivery_date (string)
   let Subscription = sequelize.define('subscriptions', {
     userId: {
       type: DataTypes.INTEGER

@@ -14,6 +14,8 @@ module.exports = {
         role: params.user.roles.admin,
         createdAt: new Date(),
         updatedAt: new Date()
+        // Add newly created attributes:
+          // description (string), image (string), addressLine1 (string), addressLine2 (string), city (string), state (string), zipcode (int)
       },
       {
         name: 'The User',
@@ -22,6 +24,8 @@ module.exports = {
         role: params.user.roles.user,
         createdAt: new Date(),
         updatedAt: new Date()
+        // Add newly created attributes
+          // description (string), image (string), addressLine1 (string), addressLine2 (string), city (string), state (string), zipcode (int)
       }
     ])
   },

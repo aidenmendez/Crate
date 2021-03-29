@@ -59,3 +59,6 @@ export async function remove(parentValue, { id }, { auth }) {
     throw new Error('Access denied.')
   }
 }
+
+// update subscription
+  // takes subscription delivery_date (id's can't be updated) 

@@ -77,3 +77,6 @@ export async function remove(parentValue, { id }) {
 export async function getGenders() {
   return Object.values(params.user.gender)
 }
+
+// Update user
+// search for user, update user details, save, and return updated User model
