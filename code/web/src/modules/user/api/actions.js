@@ -15,6 +15,8 @@ export const LOGOUT = 'AUTH/LOGOUT'
 // Actions
 
 // Set a user after login or using localStorage token
+// if the user has already logged in and/or their token was saved in localStorage,
+// call the SET_USER reducer
 export function setUser(token, user) {
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -26,13 +28,16 @@ export function setUser(token, user) {
 }
 
 // Login a user using credentials
+// if the user is logging in now, 
+// call the LOGIN_REQUEST reducer
 export function login(userCredentials, isLoading = true) {
   return dispatch => {
     dispatch({
       type: LOGIN_REQUEST,
       isLoading
     })
-
+    // which makes a query to the API asking for 
+    // the user name, email, role, and token
     return axios.post(routeApi, query({
       operation: 'userLogin',
       variables: userCredentials,
@@ -40,24 +45,29 @@ export function login(userCredentials, isLoading = true) {
     }))
       .then(response => {
         let error = ''
-
+        // if the response has an error, get it
         if (response.data.errors && response.data.errors.length > 0) {
           error = response.data.errors[0].message
+          // otherwise this is how you find the user and token from the response object
         } else if (response.data.data.userLogin.token !== '') {
           const token = response.data.data.userLogin.token
           const user = response.data.data.userLogin.user
-
+          // dispatch sends out the bat signal so the reducers fire
+          // have to call it from here because otherwise all you can access is the promise
+          // instead of the response object
           dispatch(setUser(token, user))
 
           loginSetUserLocalStorageAndCookie(token, user)
         }
-
+        // also fire the LOGIN_RESPONSE reducer, sending that error through if there was one
         dispatch({
           type: LOGIN_RESPONSE,
           error
         })
       })
       .catch(error => {
+        // if you catch an error from the API,
+        // fire the LOGIN_RESPONSE reducer with this error message
         dispatch({
           type: LOGIN_RESPONSE,
           error: 'Please try again'
@@ -67,6 +77,7 @@ export function login(userCredentials, isLoading = true) {
 }
 
 // Set user token and info in localStorage and cookie
+// so the user stays logged in even if they refresh the page
 export function loginSetUserLocalStorageAndCookie(token, user) {
   // Update token
   window.localStorage.setItem('token', token)
@@ -77,6 +88,8 @@ export function loginSetUserLocalStorageAndCookie(token, user) {
 }
 
 // Register a user
+// makes a mutation call to the API when a new user signs up
+// sending through their id, name, and email address
 export function register(userDetails) {
   return dispatch => {
     return axios.post(routeApi, mutation({
@@ -88,6 +101,7 @@ export function register(userDetails) {
 }
 
 // Log out user and remove token from localStorage
+// fires the LOGOUT reducer and clears the user's token, etc from localStorage
 export function logout() {
   return dispatch => {
     logoutUnsetUserLocalStorageAndCookie()
@@ -109,6 +123,9 @@ export function logoutUnsetUserLocalStorageAndCookie() {
 }
 
 // Get user gender
+// I suppose this is necessary
+// so we know which clothes to show the user
+// makes a query to the API for the current user's id and name and gender
 export function getGenders() {
   return dispatch => {
     return axios.post(routeApi, query({
