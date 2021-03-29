@@ -38,3 +38,50 @@ export const userRemove = {
   },
   resolve: remove
 }
+
+export const updateUser = {
+  type: UserType,
+  args: {
+    id: {
+      name: 'id',
+      type: GraphQLInt
+    },
+    name: {
+      name: 'name',
+      type: GraphQLString
+    },
+    email: {
+      name: 'email',
+      type: GraphQLString
+    },
+    description: {
+      name: 'description',
+      type: GraphQLString
+    },
+    addressLine1: {
+      name: 'addressLine1',
+      type: GraphQLString
+    },
+    addressLine2: {
+      name: 'addressLine2',
+      type: GraphQLString
+    },
+    city: {
+      name: 'city',
+      type: GraphQLString
+    },
+    state: {
+      name: 'state',
+      type: GraphQLString
+    },
+    zipcode: {
+      name: 'zipcode',
+      type: GraphQLInt
+    },
+    image: {
+      name: 'image',
+      type: GraphQLString
+    }
+  },
+  resolve: update
+}
