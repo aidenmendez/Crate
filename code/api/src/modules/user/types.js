@@ -19,7 +19,7 @@ const UserType = new GraphQLObjectType({
     addressLine2: { type: GraphQLString },
     city: { type: GraphQLString },
     state: { type: GraphQLString },
-    zipcode: { type: GraphQLint },
+    zipcode: { type: GraphQLInt },
     image: { type: GraphQLString }
   })
 })
