@@ -14,5 +14,13 @@
     "host": "127.0.0.1",
     "dialect": "postgres",
     "seederStorage": "sequelize"
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "crate_testing",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "sequelize"
   }
 }

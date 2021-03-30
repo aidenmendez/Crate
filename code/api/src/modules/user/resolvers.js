@@ -77,3 +77,27 @@ export async function remove(parentValue, { id }) {
 export async function getGenders() {
   return Object.values(params.user.gender)
 }
+
+export async function update(parentValue, { id, name, email, password, role, description, addressLine1, addressLine2, city, state, zipcode, image }, { auth }) {
+  if(auth.user) {
+    return await models.User.update(
+      {
+        id,
+        name,
+        email, 
+        password, 
+        role, 
+        description, 
+        addressLine1, 
+        addressLine2, 
+        city, 
+        state, 
+        zipcode, 
+        image
+      },
+      {where: {id}}
+    )
+  } else {
+    throw new Error('Unable to authenticate user')
+  }
+}
