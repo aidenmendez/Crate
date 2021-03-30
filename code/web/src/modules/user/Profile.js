@@ -12,7 +12,6 @@ import Button from '../../ui/button'
 import ImageTile from '../../ui/image/Tile'
 import Card from '../../ui/card/Card'
 import { level3 } from '../../ui/common/shadows'
-import Icon from '../../ui/icon'
 import { white, black, grey, grey2 } from '../../ui/common/colors'
 
 // App Imports
@@ -20,8 +19,33 @@ import { APP_URL } from '../../setup/config/env'
 import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 import { getListByUser } from '../subscription/api/actions'
+import { routeImage } from '../../setup/routes'
+
 
 const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
+
+const mockProductHistory = [
+  {
+    id:8,
+    name:"T-Shirt for Men - Grey",
+    slug:"t-shirt-for-men-grey",
+    description:"A very nice grey t-shirt for men.",
+    image:"/images/stock/t-shirt-male-2.jpg",
+    createdAt:"1616449062163",
+    updatedAt:"1616449062163",
+    kept: true
+  },
+  {
+    id:4,
+    name:"Watch for Men",
+    slug:"watch-for-men",
+    description:"A very nice watch for men.",
+    image:"/images/stock/watch-male.jpg",
+    createdAt:"1616449062163",
+    updatedAt:"1616449062163",
+    kept: false
+  }
+]
 
 // Component
 class Profile extends PureComponent {
@@ -41,6 +65,25 @@ class Profile extends PureComponent {
   }
 
   render() {
+    const products = mockProductHistory.map((product, i) => {
+      return (
+        <GridCell key={i}>
+          <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
+            <p style={{ padding: '2em 3em 0 3em' }}>
+              <img src={routeImage + product.image} alt={product.slug} style={{ width: '100%' }}/>
+            </p>
+
+            <div style={{ padding: '1em 1.2em' }}>
+              <H4 font="secondary" style={{ color: black }}>{ product.name }</H4>
+              <p>Description: {product.description}</p>
+              <p>Order Number: {product.createdAt}</p>
+              <p>Product Status: {product.kept ? "Kept" : "Returned"}</p>
+            </div>
+          </Card>
+        </GridCell>
+      )
+    })
+
     return (
       <div>
         {/* SEO */}
@@ -102,37 +145,77 @@ class Profile extends PureComponent {
         <Grid>
           <GridCell>
             {/* Card for each subscription crate - map through each in list array */}
-            <H3 font='primary'>Current Orders</H3>
-
-            {this.props.subscriptions &&
-              <Card style={{ width: '18em', backgroundColor: white }}>
-                <p style={{ padding: '2em 3em 0 3em' }}>
-                  <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
-                </p>
-
-                <div style={{ padding: '1em 1.2em' }}>
-                  <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
-
-                  <p>Order Number: {this.props.subscriptions.createdAt}</p>
-                  {/* shipping address confirmed if user.shippingAddress has value */}
-                  <p>Shipping Address: Confirmed</p>
-                  <p>Items in Crate: 3</p>
-                  <p>Delivery Date: </p>
-
-                  <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
-                    <Button
-                      theme="secondary"
-                      onClick={() => console.log('Update date')}
-                      type="button"
-                      >
-                      Update Shipping Date
-                      </Button>
+            <H4 font='primary' style={{ margin: '2rem' }}>Current Orders</H4>
+            <Grid>
+              <GridCell>
+                {this.props.subscriptions &&
+                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
+                    <p style={{ padding: '2em 3em 0 3em' }}>
+                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
                     </p>
 
-                  </div>
-                </Card>
-            }
+                    <div style={{ padding: '1em 1.2em' }}>
+                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
 
+                      <p>Order Number: {this.props.subscriptions.createdAt}</p>
+                      {/* shipping address confirmed if user.shippingAddress has value */}
+                      <p>Shipping Address: Confirmed</p>
+                      <p>Items in Crate: 3</p>
+                      <p>Delivery Date: </p>
+
+                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
+                        <Button
+                          theme="secondary"
+                          onClick={() => console.log('Update date')}
+                          type="button"
+                          >
+                          Update Shipping Date
+                        </Button>
+                      </p>
+                    </div>
+                  </Card>
+                }
+              </GridCell>
+              <GridCell>
+                {this.props.subscriptions &&
+                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
+                    <p style={{ padding: '2em 3em 0 3em' }}>
+                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
+                    </p>
+
+                    <div style={{ padding: '1em 1.2em' }}>
+                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
+
+                      <p>Order Number: {this.props.subscriptions.createdAt}</p>
+                      {/* shipping address confirmed if user.shippingAddress has value */}
+                      <p>Shipping Address: Confirmed</p>
+                      <p>Items in Crate: 3</p>
+                      <p>Delivery Date: </p>
+
+                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
+                        <Button
+                          theme="secondary"
+                          onClick={() => console.log('Update date')}
+                          type="button"
+                          >
+                          Update Shipping Date
+                        </Button>
+                      </p>
+                    </div>
+                  </Card>
+                }
+              </GridCell>
+            </Grid>
+          </GridCell>
+        </Grid>
+
+        {/* Past Orders */}
+        <Grid>
+          <GridCell>
+            <H4 font='primary' style={{ margin: '2rem' }}>Past Orders</H4>
+            <Grid>
+              {products}
+            </Grid>
           </GridCell>
         </Grid>
       </div>
