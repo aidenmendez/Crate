@@ -77,3 +77,27 @@ export async function remove(parentValue, { id }) {
 export async function getGenders() {
   return Object.values(params.user.gender)
 }
+
+export async function update(parentValue, { id, name, email, password, role, description, addressLine1, addressLine2, city, state, zipcode, image, deliveryDate }, { auth }) {
+  const user = await models.User.findOne({ where: { id } })
+    if(user) {
+      return await user.update(
+        {
+          id,
+          name,
+          email,
+          description,
+          addressLine1,
+          addressLine2,
+          city,
+          state,
+          zipcode,
+          image,
+          deliveryDate
+        },
+        {where: {id}}
+      )
+    } else {
+      throw new Error('Please try again')
+    }
+}
