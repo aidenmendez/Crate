@@ -19,8 +19,8 @@ import { APP_URL } from '../../setup/config/env'
 import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 import { getListByUser } from '../subscription/api/actions'
+import { updateUser, toggleForm } from '../user/api/actions'
 import { routeImage } from '../../setup/routes'
-
 
 const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
 
@@ -124,7 +124,7 @@ class Profile extends PureComponent {
         {/* Buttons */}
         <Grid>
           <GridCell style={{ flex: '' , textAlign: 'center', marginBottom: '2em' }}>
-            <Button theme="secondary" onClick={() => console.log('wow!')} style={{ marginRight: '1em' }}>Update Profile</Button>
+            <Button theme="secondary" onClick={this.props.toggleForm} style={{ marginRight: '1em' }}>Update Profile</Button>
 
             <Link to={userRoutes.subscriptions.path}>
               <Button theme="primary">Subscriptions</Button>
@@ -238,4 +238,4 @@ function profileState(state) {
   }
 }
 
-export default connect(profileState, { getListByUser, logout })(Profile)
+export default connect(profileState, { getListByUser, toggleForm, logout })(Profile)
