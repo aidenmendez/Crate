@@ -11,6 +11,8 @@ import { H3, H4 } from '../../ui/typography'
 import Button from '../../ui/button'
 import ImageTile from '../../ui/image/Tile'
 import Card from '../../ui/card/Card'
+import Input from '../../ui/input/Input'
+import Textarea from '../../ui/input/Textarea'
 import { level3 } from '../../ui/common/shadows'
 import { white, black, grey, grey2 } from '../../ui/common/colors'
 
@@ -52,6 +54,9 @@ class Profile extends PureComponent {
 
   constructor() {
     super()
+    this.state = {
+      currentUser: {}
+    }
   }
 
   // Runs on server only for SSR
@@ -59,9 +64,24 @@ class Profile extends PureComponent {
     return store.dispatch(getListByUser())
   }
 
+  // Update controlled form
+  onChange = (event) => {
+
+  }
+
+  // Submit controlled form data
+  onSubmit() {
+
+  }
+
   // Runs on client only
   componentDidMount() {
     this.props.getListByUser()
+
+    console.log(this.props.user.details);
+    this.setState({
+      currentUser: this.props.user.details
+    })
   }
 
   render() {
@@ -111,14 +131,26 @@ class Profile extends PureComponent {
             <ImageTile height={250} width={250} image={userImage} shadow={level3}/>
           </GridCell>
 
-          <GridCell>
-            <H4 style={{ marginBottom: '0.5em' }}>{this.props.user.details.name}</H4>
+          {this.props.user.showForm ?
+            <GridCell>
+              <H4 style={{ marginBottom: '0.5em' }}>{this.props.user.details.name}</H4>
 
-            <p style={{ color: grey2, marginBottom: '2em' }}>User Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio</p>
-            <p style={{ color: grey2, marginBottom: '2em' }}>Email Address: {this.props.user.details.email}</p>
-            <p style={{ color: grey2, marginBottom: '2em' }}>Shipping Address: 123 Main Street, Denver, CO 80602</p>
+              <label htmlFor='user-description'>User Description:</label>
+              <Textarea id='user-description' ></Textarea>
 
-          </GridCell>
+              <label htmlFor='user-email'>User Email:</label>
+              <Input id='user-email' type='text'/>
+            </GridCell> :
+
+            <GridCell>
+              <H4 style={{ marginBottom: '0.5em' }}>{this.state.currentUser.name}</H4>
+
+              <p style={{ color: grey2, marginBottom: '2em' }}>User Description: {this.state.currentUser.description}</p>
+              <p style={{ color: grey2, marginBottom: '2em' }}>Email Address: {this.state.currentUser.email}</p>
+              <p style={{ color: grey2, marginBottom: '2em' }}>Shipping Address: {this.state.currentUser.address1} {this.state.currentUser.address2}, {this.state.currentUser.city}, {this.state.currentUser.state} {this.state.currentUser.zipcode}</p>
+
+            </GridCell>
+          }
         </Grid>
 
         {/* Buttons */}
@@ -234,7 +266,8 @@ Profile.propTypes = {
 function profileState(state) {
   return {
     user: state.user,
-    subscriptions: state.subscriptionsByUser.list[0]
+    subscriptions: state.subscriptionsByUser.list[0],
+    showForm: state.user.showForm,
   }
 }
 
