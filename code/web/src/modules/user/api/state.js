@@ -1,13 +1,14 @@
 // App Imports
 import { isEmpty } from '../../../setup/helpers'
-import { SET_USER, LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT } from './actions'
+import { SET_USER, LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT, TOGGLE_FORM } from './actions'
 
 // Initial State
 export const userInitialState = {
   error: null,
   isLoading: false,
   isAuthenticated: false,
-  details: null
+  details: null,
+  showForm: false
 }
 
 // State
@@ -41,6 +42,12 @@ export default (state = userInitialState, action) => {
         isLoading: false,
         isAuthenticated: false,
         details: null
+      }
+
+    case TOGGLE_FORM:
+      return {
+        ...state,
+        showForm: !state.showForm
       }
 
     default:
