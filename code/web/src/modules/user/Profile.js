@@ -24,8 +24,6 @@ import { getListByUser } from '../subscription/api/actions'
 import { updateUser, toggleForm } from '../user/api/actions'
 import { routeImage } from '../../setup/routes'
 
-const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
-
 const mockProductHistory = [
   {
     id:8,
@@ -65,22 +63,31 @@ class Profile extends PureComponent {
   }
 
   // Update controlled form
-  onChange = (event) => {
-
+  handleChange = (event) => {
+    this.setState({
+      currentUser: {
+        ...this.state.currentUser,
+        [event.target.name]: event.target.value
+      }
+    })
   }
 
   // Submit controlled form data
-  onSubmit() {
-
+  handleSubmit = () => {
+    this.props.toggleForm()
   }
 
   // Runs on client only
   componentDidMount() {
     this.props.getListByUser()
+    const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
 
     console.log(this.props.user.details);
     this.setState({
-      currentUser: this.props.user.details
+      currentUser: {
+        ...this.props.user.details,
+        image: userImage
+      }
     })
   }
 
@@ -124,22 +131,92 @@ class Profile extends PureComponent {
               marginLeft: '2em',
               padding: '2em',
               textAlign: 'center',
-              objectFit: 'contain',
               maxWidth: 250,
-              maxHeight: 250
+              maxHeight: 250,
             }}>
-            <ImageTile height={250} width={250} image={userImage} shadow={level3}/>
+            <ImageTile
+              style={{backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center'}}
+              height={250}
+              width={250}
+              image={this.state.currentUser.image || ''}
+              shadow={level3}/>
           </GridCell>
 
           {this.props.user.showForm ?
             <GridCell>
               <H4 style={{ marginBottom: '0.5em' }}>{this.props.user.details.name}</H4>
 
-              <label htmlFor='user-description'>User Description:</label>
-              <Textarea id='user-description' ></Textarea>
+              <label htmlFor='user-description'>User Description:</label><br/>
+              <Textarea
+                id='user-description'
+                name='description'
+                onChange={this.handleChange}
+                value={this.state.currentUser.description || ''}>
+              </Textarea><br/>
 
               <label htmlFor='user-email'>User Email:</label>
-              <Input id='user-email' type='text'/>
+              <Input
+                id='user-email'
+                name='email'
+                onChange={this.handleChange}
+                value={this.state.currentUser.email || ''}
+                type='text'>
+              </Input><br/>
+
+            <label htmlFor='user-address1'>User Address Line 1:</label>
+              <Input
+                id='user-address1'
+                name='addressLine1'
+                onChange={this.handleChange}
+                value={this.state.currentUser.addressLine1 || ''}
+                type='text'>
+              </Input><br/>
+
+            <label htmlFor='user-address2'>User Address Line 2:</label>
+              <Input
+                id='user-address2'
+                name='addressLine2'
+                onChange={this.handleChange}
+                value={this.state.currentUser.addressLine2 || ''}
+                type='text'>
+              </Input>
+
+            <label htmlFor='user-city'>City:</label>
+              <Input
+                id='user-city'
+                name='city'
+                onChange={this.handleChange}
+                value={this.state.currentUser.city || ''}
+                type='text'>
+              </Input>
+
+            <label htmlFor='user-state'>State:</label>
+              <Input
+                id='user-state'
+                name='state'
+                onChange={this.handleChange}
+                value={this.state.currentUser.state || ''}
+                type='text'>
+              </Input>
+
+            <label htmlFor='user-zipcode'>Zip Code:</label>
+              <Input
+                id='user-zipcode'
+                name='zipcode'
+                onChange={this.handleChange}
+                value={this.state.currentUser.zipcode || ''}
+                type='text'>
+              </Input>
+
+            <label htmlFor='user-image'>Image:</label>
+              <Input
+                id='user-image'
+                name='image'
+                onChange={this.handleChange}
+                value={this.state.currentUser.image || ''}
+                type='text'>
+              </Input>
+
             </GridCell> :
 
             <GridCell>
@@ -147,7 +224,7 @@ class Profile extends PureComponent {
 
               <p style={{ color: grey2, marginBottom: '2em' }}>User Description: {this.state.currentUser.description}</p>
               <p style={{ color: grey2, marginBottom: '2em' }}>Email Address: {this.state.currentUser.email}</p>
-              <p style={{ color: grey2, marginBottom: '2em' }}>Shipping Address: {this.state.currentUser.address1} {this.state.currentUser.address2}, {this.state.currentUser.city}, {this.state.currentUser.state} {this.state.currentUser.zipcode}</p>
+              <p style={{ color: grey2, marginBottom: '2em' }}>Shipping Address: {this.state.currentUser.addressLine1} {this.state.currentUser.addressLine2}, {this.state.currentUser.city}, {this.state.currentUser.state} {this.state.currentUser.zipcode}</p>
 
             </GridCell>
           }
@@ -156,7 +233,10 @@ class Profile extends PureComponent {
         {/* Buttons */}
         <Grid>
           <GridCell style={{ flex: '' , textAlign: 'center', marginBottom: '2em' }}>
-            <Button theme="secondary" onClick={this.props.toggleForm} style={{ marginRight: '1em' }}>Update Profile</Button>
+            {this.props.showForm ?
+              <Button theme="secondary" onClick={this.handleSubmit} style={{ marginRight: '1em' }}>Save Profile</Button> :
+              <Button theme="secondary" onClick={this.props.toggleForm} style={{ marginRight: '1em' }}>Update Profile</Button>
+            }
 
             <Link to={userRoutes.subscriptions.path}>
               <Button theme="primary">Subscriptions</Button>
