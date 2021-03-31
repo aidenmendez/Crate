@@ -11,6 +11,7 @@ export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
 export const LOGIN_RESPONSE = 'AUTH/LOGIN_RESPONSE'
 export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
+export const TOGGLE_FORM = 'AUTH/TOGGLE_FORM'
 
 // Actions
 
@@ -36,7 +37,7 @@ export function login(userCredentials, isLoading = true) {
     return axios.post(routeApi, query({
       operation: 'userLogin',
       variables: userCredentials,
-      fields: ['user {name, email, role}', 'token']
+      fields: ['user {name, email, role, description, addressLine1, addressLine2, city, state, zipcode, image}', 'token']
     }))
       .then(response => {
         let error = ''
@@ -84,6 +85,26 @@ export function register(userDetails) {
       variables: userDetails,
       fields: ['id', 'name', 'email']
     }))
+  }
+}
+
+// Update user data
+export function updateUser(userDetails) {
+  return dispatch => {
+    return axios.post(routeApi, mutation({
+      operation: 'updateUser',
+      variables: userDetails,
+      fields: ['id', 'name', 'email', 'description', 'addressLine1', 'addressLine2', 'city', 'state', 'zipcode', 'image']
+    }))
+  }
+}
+
+// Toggles form visibility
+export function toggleForm() {
+  return dispatch => {
+    dispatch({
+      type: TOGGLE_FORM
+    })
   }
 }
 

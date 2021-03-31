@@ -26,10 +26,9 @@ const Tile = (props) => {
 Tile.propTypes = {
   image: PropTypes.string.isRequired,
   style: PropTypes.object,
-  width: PropTypes.number,
-  height: PropTypes.number,
   shadow: PropTypes.string
 }
+
 Tile.defaultProps = {
   style: {},
   width: '100%',
