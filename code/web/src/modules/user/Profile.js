@@ -82,7 +82,6 @@ class Profile extends PureComponent {
     this.props.getListByUser()
     const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
 
-    console.log(this.props.user.details);
     this.setState({
       currentUser: {
         ...this.props.user.details,

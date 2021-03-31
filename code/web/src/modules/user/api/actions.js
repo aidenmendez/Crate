@@ -101,7 +101,6 @@ export function updateUser(userDetails) {
 
 // Toggles form visibility
 export function toggleForm() {
-  console.log('it works!');
   return dispatch => {
     dispatch({
       type: TOGGLE_FORM
