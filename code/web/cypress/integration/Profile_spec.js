@@ -40,29 +40,27 @@ describe('Home Page', () => {
     cy.get('p').eq(1).should('have.text', 'Email Address: user@crate.com')
     cy.get('p').eq(2).should('have.text', 'Shipping Address: address1 address2, city, state zip')
 
+    // PAST ORDERS
+    cy.get('H4').eq(2).should('have.text', 'Past Orders')
+    cy.get('H4').eq(3).should('have.text', 'T-Shirt for Men - Grey')
+    cy.get('p').eq(3).should('have.attr', 'style', 'padding: 2em 3em 0px;')
+    cy.get('p').eq(4).should('have.text', 'Description: A very nice grey t-shirt for men.')
+    cy.get('p').eq(5).should('have.text', 'Order Number: 1616449062163')
+    cy.get('p').eq(6).should('have.text', 'Product Status: Kept')
 
-
+    cy.get('H4').eq(4).should('have.text', 'Watch for Men')
+    cy.get('p').eq(7).should('have.attr', 'style', 'padding: 2em 3em 0px;')
+    cy.get('p').eq(8).should('have.text', 'Description: A very nice watch for men.')
+    cy.get('p').eq(9).should('have.text', 'Order Number: 1616449062163')
+    cy.get('p').eq(10).should('have.text', 'Product Status: Returned')
 
     // // MY ORDERS
     // cy.get('H3').eq(1).should('have.text', 'My orders')
 
     // // CURRENT ORDERS
-    // cy.get('H4').eq(1).should('have.text', 'Current Orders')
-    // // need to add a test for current orders by going and adding a subscription here
-
-    // // PAST ORDERS
-    // cy.get('H4').eq(2).should('have.text', 'Past Orders')
-    // cy.get('H4').eq(3).should('have.text', 'T-Shirt for Men - Grey')
-    // cy.get('p').eq(3).should('have.attr', 'style', 'padding: 2em 3em 0px;')
-    // cy.get('p').eq(4).should('have.text', 'Description: A very nice grey t-shirt for men.')
-    // cy.get('p').eq(5).should('have.text', 'Order Number: 1616449062163')
-    // cy.get('p').eq(6).should('have.text', 'Product Status: Kept')
-
-    // cy.get('H4').eq(4).should('have.text', 'Watch for Men')
-    // cy.get('p').eq(7).should('have.attr', 'style', 'padding: 2em 3em 0px;')
-    // cy.get('p').eq(8).should('have.text', 'Description: A very nice watch for men.')
-    // cy.get('p').eq(9).should('have.text', 'Order Number: 1616449062163')
-    // cy.get('p').eq(10).should('have.text', 'Product Status: Returned')
+    // cy.get('a').eq(5).click()
+    // cy.get('button').first().click()
+    // cy.get('a').eq(7).click()
 
   })
 
