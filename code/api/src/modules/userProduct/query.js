@@ -1,7 +1,7 @@
 import { GraphQLList } from 'graphql'
 
 // App Imports
-import { UserProductType } from './types'
+import UserProductType from './types'
 import { getAll, getByUser } from './resolvers'
 
 // Get all userProducts

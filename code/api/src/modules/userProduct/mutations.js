@@ -4,4 +4,9 @@ import { GraphQLString, GraphQLInt } from 'graphql'
 import { UserProductType } from './types'
 import { create, remove, update } from './resolvers'
 
-export const 
+// export const userProductCreate = {
+//   type: userProductType,
+//   args {
+    
+//   }
+// }
