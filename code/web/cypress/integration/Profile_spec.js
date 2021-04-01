@@ -28,26 +28,41 @@ describe('Home Page', () => {
     cy.get('button').eq(2).should('have.text', 'Logout')
 
     // UPDATE PROFILE
+    cy.get('button').first().click()
+    cy.get('textarea').click().type('description')
+    cy.get('input').eq(1).click().type('address1')
+    cy.get('input').eq(2).click().type('address2')
+    cy.get('input').eq(3).click().type('city')
+    cy.get('input').eq(4).click().type('state')
+    cy.get('input').eq(5).click().type('zip')
+    cy.get('button').first().click()
+    cy.get('p').first().should('have.text', 'User Description: description')
+    cy.get('p').eq(1).should('have.text', 'Email Address: user@crate.com')
+    cy.get('p').eq(2).should('have.text', 'Shipping Address: address1 address2, city, state zip')
 
-    // MY ORDERS
-    cy.get('H3').eq(1).should('have.text', 'My orders')
 
-    // CURRENT ORDERS
-    // need to add a test for current orders by going and adding a subscription here
 
-    // PAST ORDERS
-    cy.get('H4').eq(2).should('have.text', 'Past Orders')
-    cy.get('H4').eq(3).should('have.text', 'T-Shirt for Men - Grey')
-    cy.get('p').eq(3).should('have.attr', 'style', 'padding: 2em 3em 0px;')
-    cy.get('p').eq(4).should('have.text', 'Description: A very nice grey t-shirt for men.')
-    cy.get('p').eq(5).should('have.text', 'Order Number: 1616449062163')
-    cy.get('p').eq(6).should('have.text', 'Product Status: Kept')
 
-    cy.get('H4').eq(4).should('have.text', 'Watch for Men')
-    cy.get('p').eq(7).should('have.attr', 'style', 'padding: 2em 3em 0px;')
-    cy.get('p').eq(8).should('have.text', 'Description: A very nice watch for men.')
-    cy.get('p').eq(9).should('have.text', 'Order Number: 1616449062163')
-    cy.get('p').eq(10).should('have.text', 'Product Status: Returned')
+    // // MY ORDERS
+    // cy.get('H3').eq(1).should('have.text', 'My orders')
+
+    // // CURRENT ORDERS
+    // cy.get('H4').eq(1).should('have.text', 'Current Orders')
+    // // need to add a test for current orders by going and adding a subscription here
+
+    // // PAST ORDERS
+    // cy.get('H4').eq(2).should('have.text', 'Past Orders')
+    // cy.get('H4').eq(3).should('have.text', 'T-Shirt for Men - Grey')
+    // cy.get('p').eq(3).should('have.attr', 'style', 'padding: 2em 3em 0px;')
+    // cy.get('p').eq(4).should('have.text', 'Description: A very nice grey t-shirt for men.')
+    // cy.get('p').eq(5).should('have.text', 'Order Number: 1616449062163')
+    // cy.get('p').eq(6).should('have.text', 'Product Status: Kept')
+
+    // cy.get('H4').eq(4).should('have.text', 'Watch for Men')
+    // cy.get('p').eq(7).should('have.attr', 'style', 'padding: 2em 3em 0px;')
+    // cy.get('p').eq(8).should('have.text', 'Description: A very nice watch for men.')
+    // cy.get('p').eq(9).should('have.text', 'Order Number: 1616449062163')
+    // cy.get('p').eq(10).should('have.text', 'Product Status: Returned')
 
   })
 
