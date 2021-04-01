@@ -28,12 +28,17 @@ describe('Home Page', () => {
     cy.get('button').eq(2).should('have.text', 'Logout')
 
     // UPDATE PROFILE
-
-    // MY ORDERS
-    cy.get('H3').eq(1).should('have.text', 'My orders')
-
-    // CURRENT ORDERS
-    // need to add a test for current orders by going and adding a subscription here
+    cy.get('button').first().click()
+    cy.get('textarea').click().type('description')
+    cy.get('input').eq(1).click().type('address1')
+    cy.get('input').eq(2).click().type('address2')
+    cy.get('input').eq(3).click().type('city')
+    cy.get('input').eq(4).click().type('state')
+    cy.get('input').eq(5).click().type('zip')
+    cy.get('button').first().click()
+    cy.get('p').first().should('have.text', 'User Description: description')
+    cy.get('p').eq(1).should('have.text', 'Email Address: user@crate.com')
+    cy.get('p').eq(2).should('have.text', 'Shipping Address: address1 address2, city, state zip')
 
     // PAST ORDERS
     cy.get('H4').eq(2).should('have.text', 'Past Orders')
@@ -48,6 +53,14 @@ describe('Home Page', () => {
     cy.get('p').eq(8).should('have.text', 'Description: A very nice watch for men.')
     cy.get('p').eq(9).should('have.text', 'Order Number: 1616449062163')
     cy.get('p').eq(10).should('have.text', 'Product Status: Returned')
+
+    // // MY ORDERS
+    // cy.get('H3').eq(1).should('have.text', 'My orders')
+
+    // // CURRENT ORDERS
+    // cy.get('a').eq(5).click()
+    // cy.get('button').first().click()
+    // cy.get('a').eq(7).click()
 
   })
 
