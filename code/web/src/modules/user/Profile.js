@@ -202,84 +202,88 @@ class Profile extends PureComponent {
 
           {this.props.user.showForm ? (
             <GridCell>
-              <H4 style={{ marginBottom: "0.5em" }}>
+              <H4 style={{ marginBottom: "0.5em", padding: "1rem" }}>
                 {this.props.user.details.name}
               </H4>
+              <Grid style={{ margin: '1rem'}}>
+                <GridCell>
+                  <label htmlFor="user-description">User Description:</label>
+                  <br />
+                  <Textarea
+                    id="user-description"
+                    name="description"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.description || ""}
+                  ></Textarea>
+                  <br />
 
-              <label htmlFor="user-description">User Description:</label>
-              <br />
-              <Textarea
-                id="user-description"
-                name="description"
-                onChange={this.handleChange}
-                value={this.state.currentUser.description || ""}
-              ></Textarea>
-              <br />
+                  <label htmlFor="user-email">User Email:</label>
+                  <Input
+                    id="user-email"
+                    name="email"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.email || ""}
+                    type="text"
+                  ></Input>
+                  <br />
 
-              <label htmlFor="user-email">User Email:</label>
-              <Input
-                id="user-email"
-                name="email"
-                onChange={this.handleChange}
-                value={this.state.currentUser.email || ""}
-                type="text"
-              ></Input>
-              <br />
+                  <label htmlFor="user-address1">User Address Line 1:</label>
+                  <Input
+                    id="user-address1"
+                    name="addressLine1"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.addressLine1 || ""}
+                    type="text"
+                  ></Input>
+                  <br />
 
-              <label htmlFor="user-address1">User Address Line 1:</label>
-              <Input
-                id="user-address1"
-                name="addressLine1"
-                onChange={this.handleChange}
-                value={this.state.currentUser.addressLine1 || ""}
-                type="text"
-              ></Input>
-              <br />
+                  <label htmlFor="user-address2">User Address Line 2:</label>
+                  <Input
+                    id="user-address2"
+                    name="addressLine2"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.addressLine2 || ""}
+                    type="text"
+                  ></Input>
+                </GridCell>
+                <GridCell>
+                  <label htmlFor="user-city">City:</label>
+                  <Input
+                    id="user-city"
+                    name="city"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.city || ""}
+                    type="text"
+                  ></Input>
 
-              <label htmlFor="user-address2">User Address Line 2:</label>
-              <Input
-                id="user-address2"
-                name="addressLine2"
-                onChange={this.handleChange}
-                value={this.state.currentUser.addressLine2 || ""}
-                type="text"
-              ></Input>
+                  <label htmlFor="user-state">State:</label>
+                  <Input
+                    id="user-state"
+                    name="state"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.state || ""}
+                    type="text"
+                  ></Input>
 
-              <label htmlFor="user-city">City:</label>
-              <Input
-                id="user-city"
-                name="city"
-                onChange={this.handleChange}
-                value={this.state.currentUser.city || ""}
-                type="text"
-              ></Input>
+                  <label htmlFor="user-zipcode">Zip Code:</label>
+                  <Input
+                    id="user-zipcode"
+                    name="zipcode"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.zipcode || ""}
+                    type="text"
+                  ></Input>
 
-              <label htmlFor="user-state">State:</label>
-              <Input
-                id="user-state"
-                name="state"
-                onChange={this.handleChange}
-                value={this.state.currentUser.state || ""}
-                type="text"
-              ></Input>
-
-              <label htmlFor="user-zipcode">Zip Code:</label>
-              <Input
-                id="user-zipcode"
-                name="zipcode"
-                onChange={this.handleChange}
-                value={this.state.currentUser.zipcode || ""}
-                type="text"
-              ></Input>
-
-              <label htmlFor="user-image">Image:</label>
-              <Input
-                id="user-image"
-                name="image"
-                onChange={this.handleChange}
-                value={this.state.currentUser.image || ""}
-                type="text"
-              ></Input>
+                  <label htmlFor="user-image">Image:</label>
+                  <Input
+                    id="user-image"
+                    name="image"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.image || ""}
+                    type="text"
+                  ></Input>
+                </GridCell>
+              </Grid>
             </GridCell>
           ) : (
             <GridCell>
