@@ -120,7 +120,7 @@ class Profile extends PureComponent {
         {/* Top title bar */}
         <Grid style={{ backgroundColor: grey }}>
           <GridCell style={{ padding: '2em', textAlign: 'center' }}>
-            <H3 font="secondary">My profile</H3>
+            <H3 className="profile-title" font="secondary">My profile</H3>
           </GridCell>
         </Grid>
 
@@ -134,6 +134,7 @@ class Profile extends PureComponent {
               maxHeight: 250,
             }}>
             <ImageTile
+              className="profile-image"
               style={{backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center'}}
               height={250}
               width={250}
