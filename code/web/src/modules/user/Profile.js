@@ -110,6 +110,52 @@ class Profile extends PureComponent {
       )
     })
 
+    const subs = this.props.subscriptions.map((sub, i) => {
+      return (
+        <GridCell key={i}>
+          <Card
+            style={{ width: "18em", backgroundColor: white, margin: "auto" }}
+          >
+            <p style={{ padding: "2em 3em 0 3em" }}>
+              <img
+                src={`${APP_URL}/images/crate.png`}
+                alt={sub.crate.name}
+                style={{ width: "100%" }}
+              />
+            </p>
+
+            <div style={{ padding: "1em 1.2em" }}>
+              <H4 font="secondary" style={{ color: black }}>
+                {sub.crate.name}
+              </H4>
+
+              <p>Order Number: {sub.createdAt}</p>
+              {/* shipping address confirmed if user.shippingAddress has value */}
+              <p>Shipping Address: Confirmed</p>
+              <p>Items in Crate: 3</p>
+              <p>Delivery Date: </p>
+
+              <p
+                style={{
+                  textAlign: "center",
+                  marginTop: "1.5em",
+                  marginBottom: "1em",
+                }}
+              >
+                <Button
+                  theme="secondary"
+                  onClick={() => console.log("Update date")}
+                  type="button"
+                >
+                  Update Shipping Date
+                </Button>
+              </p>
+            </div>
+          </Card>
+        </GridCell>
+      )
+    })
+
     return (
       <div>
         {/* SEO */}
@@ -257,66 +303,11 @@ class Profile extends PureComponent {
           <GridCell>
             {/* Card for each subscription crate - map through each in list array */}
             <H4 font='primary' style={{ margin: '2rem' }}>Current Orders</H4>
-            <Grid>
-              <GridCell>
-                {this.props.subscriptions &&
-                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
-                    <p style={{ padding: '2em 3em 0 3em' }}>
-                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
-                    </p>
-
-                    <div style={{ padding: '1em 1.2em' }}>
-                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
-
-                      <p>Order Number: {this.props.subscriptions.createdAt}</p>
-                      {/* shipping address confirmed if user.shippingAddress has value */}
-                      <p>Shipping Address: Confirmed</p>
-                      <p>Items in Crate: 3</p>
-                      <p>Delivery Date: </p>
-
-                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
-                        <Button
-                          theme="secondary"
-                          onClick={() => console.log('Update date')}
-                          type="button"
-                          >
-                          Update Shipping Date
-                        </Button>
-                      </p>
-                    </div>
-                  </Card>
-                }
-              </GridCell>
-              <GridCell>
-                {this.props.subscriptions &&
-                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
-                    <p style={{ padding: '2em 3em 0 3em' }}>
-                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
-                    </p>
-
-                    <div style={{ padding: '1em 1.2em' }}>
-                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
-
-                      <p>Order Number: {this.props.subscriptions.createdAt}</p>
-                      {/* shipping address confirmed if user.shippingAddress has value */}
-                      <p>Shipping Address: Confirmed</p>
-                      <p>Items in Crate: 3</p>
-                      <p>Delivery Date: </p>
-
-                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
-                        <Button
-                          theme="secondary"
-                          onClick={() => console.log('Update date')}
-                          type="button"
-                          >
-                          Update Shipping Date
-                        </Button>
-                      </p>
-                    </div>
-                  </Card>
-                }
-              </GridCell>
-            </Grid>
+              {this.props.subscriptions &&
+                <Grid>
+                  {subs}
+                </Grid>
+              }
           </GridCell>
         </Grid>
 
@@ -338,14 +329,14 @@ class Profile extends PureComponent {
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
-  subscriptions: PropTypes.object
+  subscriptions: PropTypes.array
 }
 
 // Component State
 function profileState(state) {
   return {
     user: state.user,
-    subscriptions: state.subscriptionsByUser.list[0],
+    subscriptions: state.subscriptionsByUser.list,
     showForm: state.user.showForm,
   }
 }
