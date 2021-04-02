@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLBoolean, GraphQLInt } from 'graphql'
-import UserType from '../user/types'
-import ProductType from '../product/types'
+
+import { UserType } from '../user/types'
+import { ProductType } from '../product/types'
 
 // UserProduct type
 const UserProductType = new GraphQLObjectType({
