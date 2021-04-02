@@ -55,7 +55,18 @@ class Profile extends PureComponent {
   constructor() {
     super()
     this.state = {
-      currentUser: {}
+      currentUser: {
+        id: 0,
+        name: '',
+        email: '',
+        description: '',
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        zipcode: 0,
+        image: ''
+      }
     }
   }
 
@@ -66,6 +77,15 @@ class Profile extends PureComponent {
 
   // Update controlled form
   handleChange = (event) => {
+    // if (event.target.name === 'id' || event.target.name === 'zipcode') {
+    //   this.setState({
+    //     currentUser: {
+    //       ...this.state.currentUser,
+    //       [event.target.name]: Number(event.target.value)
+    //     }
+    //   })
+    // }
+
     this.setState({
       currentUser: {
         ...this.state.currentUser,
@@ -76,6 +96,9 @@ class Profile extends PureComponent {
 
   // Submit controlled form data
   handleSubmit = () => {
+    // passed in currentUser (user details in actions should equal a user object with all keys on currentUser) REMOVE THIS LATER
+    console.log(this.state.currentUser)
+    this.props.updateUser(this.state.currentUser)
     this.props.toggleForm()
     this.props.messageShow('Profile updated successfully.')
     window.setTimeout(() => {
@@ -213,7 +236,7 @@ class Profile extends PureComponent {
                     id="user-description"
                     name="description"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.description || ""}
+                    value={this.state.currentUser.description || ''}
                   ></Textarea>
                   <br />
 
@@ -222,7 +245,7 @@ class Profile extends PureComponent {
                     id="user-email"
                     name="email"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.email || ""}
+                    value={this.state.currentUser.email || ''}
                     type="text"
                   ></Input>
                   <br />
@@ -232,7 +255,7 @@ class Profile extends PureComponent {
                     id="user-address1"
                     name="addressLine1"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.addressLine1 || ""}
+                    value={this.state.currentUser.addressLine1 || ''}
                     type="text"
                   ></Input>
                   <br />
@@ -242,7 +265,7 @@ class Profile extends PureComponent {
                     id="user-address2"
                     name="addressLine2"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.addressLine2 || ""}
+                    value={this.state.currentUser.addressLine2 || ''}
                     type="text"
                   ></Input>
                 </GridCell>
@@ -252,7 +275,7 @@ class Profile extends PureComponent {
                     id="user-city"
                     name="city"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.city || ""}
+                    value={this.state.currentUser.city || ''}
                     type="text"
                   ></Input>
 
@@ -261,7 +284,7 @@ class Profile extends PureComponent {
                     id="user-state"
                     name="state"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.state || ""}
+                    value={this.state.currentUser.state || ''}
                     type="text"
                   ></Input>
 
@@ -270,7 +293,7 @@ class Profile extends PureComponent {
                     id="user-zipcode"
                     name="zipcode"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.zipcode || ""}
+                    value={this.state.currentUser.zipcode || ''}
                     type="text"
                   ></Input>
 
@@ -279,7 +302,7 @@ class Profile extends PureComponent {
                     id="user-image"
                     name="image"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.image || ""}
+                    value={this.state.currentUser.image || ''}
                     type="text"
                   ></Input>
                 </GridCell>
@@ -395,7 +418,8 @@ Profile.propTypes = {
   subscriptions: PropTypes.array,
   showForm: PropTypes.bool,
   messageShow: PropTypes.func.isRequired,
-  messageHide: PropTypes.func.isRequired
+  messageHide: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
 }
 
 // Component State
@@ -407,4 +431,4 @@ function profileState(state) {
   }
 }
 
-export default connect(profileState, { getListByUser, toggleForm, logout, messageShow, messageHide })(Profile)
+export default connect(profileState, { getListByUser, toggleForm, logout, messageShow, messageHide, updateUser })(Profile)

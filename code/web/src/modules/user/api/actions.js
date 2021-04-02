@@ -90,6 +90,7 @@ export function register(userDetails) {
 
 // Update user data
 export function updateUser(userDetails) {
+  console.log(userDetails);
   return dispatch => {
     return axios.post(routeApi, mutation({
       operation: 'updateUser',
@@ -138,3 +139,7 @@ export function getGenders() {
     }))
   }
 }
+
+
+
+// Get user products and store in state (might need to make a spot in store)
