@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_products', {
+    return queryInterface.createTable('userProducts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -28,12 +28,20 @@ module.exports = {
       kept: {
         type: Sequelize.BOOLEAN,
         allowNull: false
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     })
 
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user_products');
+    return queryInterface.dropTable('userProducts');
   }
 };
