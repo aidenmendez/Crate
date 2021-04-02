@@ -13,7 +13,7 @@ describe('user queries', async (done) => {
       graphqlHTTP({
         schema: schema,
         graphiql: false
-        })
-      )
-    });
+      })
+    )
   });
+});
