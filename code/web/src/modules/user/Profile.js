@@ -365,6 +365,12 @@ class Profile extends PureComponent {
                 <EmptyMessage message="You are not subscribed to any crates yet." />
               </Grid>
             )}
+            <H4 font='primary' style={{ margin: '2rem' }}>Current Orders</H4>
+              {this.props.subscriptions &&
+                <Grid>
+                  {subs}
+                </Grid>
+              }
           </GridCell>
         </Grid>
 
