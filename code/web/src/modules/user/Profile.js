@@ -14,7 +14,7 @@ import { white, black, grey, grey2 } from '../../ui/common/colors'
 // App Imports
 import { APP_URL } from '../../setup/config/env'
 import userRoutes from '../../setup/routes/user'
-import { loginSetUserLocalStorageAndCookie, logout } from "./api/actions"
+import { logout } from "./api/actions"
 import { getListByUser } from '../subscription/api/actions'
 import { updateUser, toggleForm } from '../user/api/actions'
 import { messageShow, messageHide } from "../common/api/actions"
@@ -243,6 +243,7 @@ class Profile extends PureComponent {
                     value={this.state.currentUser.description}
                   ></Textarea>
                   <br />
+
                   <label htmlFor="user-email">User Email:</label>
                   <Input
                     id="user-email"
@@ -252,6 +253,7 @@ class Profile extends PureComponent {
                     type="text"
                   ></Input>
                   <br />
+
                   <label htmlFor="user-address1">User Address Line 1:</label>
                   <Input
                     id="user-address1"
@@ -261,6 +263,7 @@ class Profile extends PureComponent {
                     type="text"
                   ></Input>
                   <br />
+
                   <label htmlFor="user-address2">User Address Line 2:</label>
                   <Input
                     id="user-address2"
@@ -279,6 +282,7 @@ class Profile extends PureComponent {
                     value={this.state.currentUser.city}
                     type="text"
                   ></Input>
+
                   <label htmlFor="user-state">State:</label>
                   <Input
                     id="user-state"
@@ -287,6 +291,7 @@ class Profile extends PureComponent {
                     value={this.state.currentUser.state}
                     type="text"
                   ></Input>
+
                   <label htmlFor="user-zipcode">Zip Code:</label>
                   <Input
                     id="user-zipcode"
@@ -295,6 +300,7 @@ class Profile extends PureComponent {
                     value={this.state.currentUser.zipcode}
                     type="text"
                   ></Input>
+
                   <label htmlFor="user-image">Image:</label>
                   <Input
                     id="user-image"
@@ -430,3 +436,4 @@ export default connect(profileState, {
   messageHide,
   messageShow
 })(Profile)
+
