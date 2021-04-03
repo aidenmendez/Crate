@@ -76,7 +76,7 @@ export const updateUser = {
     },
     zipcode: {
       name: 'zipcode',
-      type: GraphQLInt
+      type: GraphQLString
     },
     image: {
       name: 'image',
