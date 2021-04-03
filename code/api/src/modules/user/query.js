@@ -24,22 +24,27 @@ export const user = {
 export const userLogin = {
   type: UserLoginType,
   args: {
+    id: {
+      name: "id",
+      type: GraphQLInt,
+    },
+
     email: {
-      name: 'email',
-      type: GraphQLString
+      name: "email",
+      type: GraphQLString,
     },
 
     password: {
-      name: 'password',
-      type: GraphQLString
+      name: "password",
+      type: GraphQLString,
     },
 
     role: {
-      name: 'role',
-      type: GraphQLString
-    }
+      name: "role",
+      type: GraphQLString,
+    },
   },
-  resolve: login
+  resolve: login,
 }
 
 // Genders

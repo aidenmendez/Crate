@@ -75,22 +75,45 @@ class Profile extends PureComponent {
   }
 
   // Submit controlled form data
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.updateUser(this.state.currentUser)
+    window.localStorage.setItem('user', JSON.stringify(this.state.currentUser))
+
     this.props.toggleForm()
-    this.props.messageShow('Profile updated successfully.')
+    this.props.messageShow("Profile updated successfully.")
+
     window.setTimeout(() => {
       this.props.messageHide()
     }, 5000)
   }
 
+  changeNullToString() {
+    const userProps = Object.keys(this.props.user.details)
+
+    const userStrings = userProps.reduce((total, value) => {
+      if (value !== 'role') {
+        if (this.props.user.details[value] === null) {
+          total[value] =  ''
+        } else {
+          total[value] = this.props.user.details[value]
+        }
+      }
+      return total
+    }, {})
+
+    return userStrings
+  }
+
   // Runs on client only
   componentDidMount() {
     this.props.getListByUser()
-    const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
+    const userImage = this.props.user.details.image || `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
+    const useThisUser = this.changeNullToString()
 
     this.setState({
       currentUser: {
-        ...this.props.user.details,
+        ...useThisUser,
         image: userImage
       }
     })
@@ -116,51 +139,55 @@ class Profile extends PureComponent {
       )
     })
 
-    const subs = this.props.subscriptions.map((sub, i) => {
-      return (
-        <GridCell key={i}>
-          <Card
-            style={{ width: "18em", backgroundColor: white, margin: "auto" }}
-          >
-            <p style={{ padding: "2em 3em 0 3em" }}>
-              <img
-                src={`${APP_URL}/images/crate.png`}
-                alt={sub.crate.name}
-                style={{ width: "100%" }}
-              />
-            </p>
-
-            <div style={{ padding: "1em 1.2em" }}>
-              <H4 font="secondary" style={{ color: black }}>
-                {sub.crate.name}
-              </H4>
-
-              <p>Order Number: {sub.createdAt}</p>
-              {/* shipping address confirmed if user.shippingAddress has value */}
-              <p>Shipping Address: Confirmed</p>
-              <p>Items in Crate: 3</p>
-              <p>Delivery Date: </p>
-
-              <p
-                style={{
-                  textAlign: "center",
-                  marginTop: "1.5em",
-                  marginBottom: "1em",
-                }}
-              >
-                <Button
-                  theme="secondary"
-                  onClick={() => console.log("Update date", sub.createdAt)}
-                  type="button"
-                >
-                  Update Shipping Date
-                </Button>
+    let subs
+    if (this.props.subscriptions) {
+      subs = this.props.subscriptions.map((sub, i) => {
+        return (
+          <GridCell key={i}>
+            <Card
+              style={{ width: "18em", backgroundColor: white, margin: "auto" }}
+            >
+              <p style={{ padding: "2em 3em 0 3em" }}>
+                <img
+                  src={`${APP_URL}/images/crate.png`}
+                  alt={sub.crate.name}
+                  style={{ width: "100%" }}
+                />
               </p>
-            </div>
-          </Card>
-        </GridCell>
-      )
-    })
+  
+              <div style={{ padding: "1em 1.2em" }}>
+                <H4 font="secondary" style={{ color: black }}>
+                  {sub.crate.name}
+                </H4>
+  
+                <p>Order Number: {sub.createdAt}</p>
+                {/* shipping address confirmed if user.shippingAddress has value */}
+                <p>Shipping Address: Confirmed</p>
+                <p>Items in Crate: 3</p>
+                <p>Delivery Date: </p>
+  
+                <p
+                  style={{
+                    textAlign: "center",
+                    marginTop: "1.5em",
+                    marginBottom: "1em",
+                  }}
+                >
+                  <Button
+                    theme="secondary"
+                    onClick={() => console.log("Update date", sub.createdAt)}
+                    type="button"
+                  >
+                    Update Shipping Date
+                  </Button>
+                </p>
+              </div>
+            </Card>
+          </GridCell>
+        )
+      })
+
+    }
 
     return (
       <div>
@@ -213,7 +240,7 @@ class Profile extends PureComponent {
                     id="user-description"
                     name="description"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.description || ""}
+                    value={this.state.currentUser.description}
                   ></Textarea>
                   <br />
 
@@ -222,7 +249,7 @@ class Profile extends PureComponent {
                     id="user-email"
                     name="email"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.email || ""}
+                    value={this.state.currentUser.email}
                     type="text"
                   ></Input>
                   <br />
@@ -232,7 +259,7 @@ class Profile extends PureComponent {
                     id="user-address1"
                     name="addressLine1"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.addressLine1 || ""}
+                    value={this.state.currentUser.addressLine1}
                     type="text"
                   ></Input>
                   <br />
@@ -242,7 +269,7 @@ class Profile extends PureComponent {
                     id="user-address2"
                     name="addressLine2"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.addressLine2 || ""}
+                    value={this.state.currentUser.addressLine2}
                     type="text"
                   ></Input>
                 </GridCell>
@@ -252,7 +279,7 @@ class Profile extends PureComponent {
                     id="user-city"
                     name="city"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.city || ""}
+                    value={this.state.currentUser.city}
                     type="text"
                   ></Input>
 
@@ -261,7 +288,7 @@ class Profile extends PureComponent {
                     id="user-state"
                     name="state"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.state || ""}
+                    value={this.state.currentUser.state}
                     type="text"
                   ></Input>
 
@@ -270,7 +297,7 @@ class Profile extends PureComponent {
                     id="user-zipcode"
                     name="zipcode"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.zipcode || ""}
+                    value={this.state.currentUser.zipcode}
                     type="text"
                   ></Input>
 
@@ -279,7 +306,7 @@ class Profile extends PureComponent {
                     id="user-image"
                     name="image"
                     onChange={this.handleChange}
-                    value={this.state.currentUser.image || ""}
+                    value={this.state.currentUser.image}
                     type="text"
                   ></Input>
                 </GridCell>
@@ -401,4 +428,12 @@ function profileState(state) {
   }
 }
 
-export default connect(profileState, { getListByUser, toggleForm, logout, messageShow, messageHide })(Profile)
+export default connect(profileState, {
+  getListByUser,
+  toggleForm,
+  logout,
+  updateUser,
+  messageHide,
+  messageShow
+})(Profile)
+

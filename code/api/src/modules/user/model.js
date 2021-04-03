@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT
     },
     zipcode: {
-      type: DataTypes.INTEGER
+      type: DataTypes.TEXT
     },
     image: {
       type: DataTypes.TEXT
