@@ -23,6 +23,7 @@ import { logout } from './api/actions'
 import { getListByUser } from '../subscription/api/actions'
 import { updateUser, toggleForm } from '../user/api/actions'
 import { routeImage } from '../../setup/routes'
+import { messageShow, messageHide } from "../common/api/actions"
 
 const mockProductHistory = [
   {
@@ -74,17 +75,41 @@ class Profile extends PureComponent {
 
   // Submit controlled form data
   handleSubmit = () => {
+    this.props.updateUser(this.state.currentUser)
     this.props.toggleForm()
+    this.props.messageShow("Profile updated successfully.")
+
+    window.setTimeout(() => {
+      this.props.messageHide()
+    }, 5000)
+  }
+
+  changeNullToString() {
+    const userProps = Object.keys(this.props.user.details)
+
+    const userStrings = userProps.reduce((total, value) => {
+      if (value !== 'role') {
+        if (this.props.user.details[value] === null) {
+          total[value] = ''
+        } else {
+          total[value] = this.props.user.details[value]
+        }
+      }
+      return total
+    }, {})
+
+    return userStrings
   }
 
   // Runs on client only
   componentDidMount() {
     this.props.getListByUser()
     const userImage = `https://media.newyorker.com/photos/5e49bf473399bf0008132231/1:1/w_2539,h_2539,c_limit/Kenseth-CatProfile.jpg`
+    const useThisUser = this.changeNullToString()
 
     this.setState({
       currentUser: {
-        ...this.props.user.details,
+        ...useThisUser,
         image: userImage
       }
     })
@@ -119,135 +144,177 @@ class Profile extends PureComponent {
 
         {/* Top title bar */}
         <Grid style={{ backgroundColor: grey }}>
-          <GridCell style={{ padding: '2em', textAlign: 'center' }}>
+          <GridCell style={{ padding: "2em", textAlign: "center" }}>
             <H3 font="secondary">My profile</H3>
           </GridCell>
         </Grid>
 
         {/* User information */}
         <Grid justifyCenter={true} alignCenter={true}>
-          <GridCell style={{
-              marginLeft: '2em',
-              padding: '2em',
-              textAlign: 'center',
+          <GridCell
+            style={{
+              marginLeft: "2em",
+              padding: "2em",
+              textAlign: "center",
               maxWidth: 250,
               maxHeight: 250,
-            }}>
+            }}
+          >
             <ImageTile
-              style={{backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center'}}
+              style={{
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
               height={250}
               width={250}
-              image={this.state.currentUser.image || ''}
-              shadow={level3}/>
+              image={this.state.currentUser.image || ""}
+              shadow={level3}
+            />
           </GridCell>
 
-          {this.props.user.showForm ?
+          {this.props.user.showForm ? (
             <GridCell>
-              <H4 style={{ marginBottom: '0.5em' }}>{this.props.user.details.name}</H4>
+              <H4 style={{ marginBottom: "0.5em" }}>
+                {this.props.user.details.name}
+              </H4>
 
-              <label htmlFor='user-description'>User Description:</label><br/>
-              <Textarea
-                id='user-description'
-                name='description'
-                onChange={this.handleChange}
-                value={this.state.currentUser.description || ''}>
-              </Textarea><br/>
-
-              <label htmlFor='user-email'>User Email:</label>
-              <Input
-                id='user-email'
-                name='email'
-                onChange={this.handleChange}
-                value={this.state.currentUser.email || ''}
-                type='text'>
-              </Input><br/>
-
-            <label htmlFor='user-address1'>User Address Line 1:</label>
-              <Input
-                id='user-address1'
-                name='addressLine1'
-                onChange={this.handleChange}
-                value={this.state.currentUser.addressLine1 || ''}
-                type='text'>
-              </Input><br/>
-
-            <label htmlFor='user-address2'>User Address Line 2:</label>
-              <Input
-                id='user-address2'
-                name='addressLine2'
-                onChange={this.handleChange}
-                value={this.state.currentUser.addressLine2 || ''}
-                type='text'>
-              </Input>
-
-            <label htmlFor='user-city'>City:</label>
-              <Input
-                id='user-city'
-                name='city'
-                onChange={this.handleChange}
-                value={this.state.currentUser.city || ''}
-                type='text'>
-              </Input>
-
-            <label htmlFor='user-state'>State:</label>
-              <Input
-                id='user-state'
-                name='state'
-                onChange={this.handleChange}
-                value={this.state.currentUser.state || ''}
-                type='text'>
-              </Input>
-
-            <label htmlFor='user-zipcode'>Zip Code:</label>
-              <Input
-                id='user-zipcode'
-                name='zipcode'
-                onChange={this.handleChange}
-                value={this.state.currentUser.zipcode || ''}
-                type='text'>
-              </Input>
-
-            <label htmlFor='user-image'>Image:</label>
-              <Input
-                id='user-image'
-                name='image'
-                onChange={this.handleChange}
-                value={this.state.currentUser.image || ''}
-                type='text'>
-              </Input>
-
-            </GridCell> :
-
-            <GridCell>
-              <H4 style={{ marginBottom: '0.5em' }}>{this.state.currentUser.name}</H4>
-
-              <p style={{ color: grey2, marginBottom: '2em' }}>User Description: {this.state.currentUser.description}</p>
-              <p style={{ color: grey2, marginBottom: '2em' }}>Email Address: {this.state.currentUser.email}</p>
-              <p style={{ color: grey2, marginBottom: '2em' }}>Shipping Address: {this.state.currentUser.addressLine1} {this.state.currentUser.addressLine2}, {this.state.currentUser.city}, {this.state.currentUser.state} {this.state.currentUser.zipcode}</p>
-
+              <Grid style={{ margin: "1rem" }}>
+                <GridCell>
+                  <label htmlFor="user-description">User Description:</label>
+                  <br />
+                  <Textarea
+                    id="user-description"
+                    name="description"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.description || "test"}
+                  ></Textarea>
+                  <br />
+                  <label htmlFor="user-email">User Email:</label>
+                  <Input
+                    id="user-email"
+                    name="email"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.email || ""}
+                    type="text"
+                  ></Input>
+                  <br />
+                  <label htmlFor="user-address1">User Address Line 1:</label>
+                  <Input
+                    id="user-address1"
+                    name="addressLine1"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.addressLine1 || ""}
+                    type="text"
+                  ></Input>
+                  <br />
+                  <label htmlFor="user-address2">User Address Line 2:</label>
+                  <Input
+                    id="user-address2"
+                    name="addressLine2"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.addressLine2 || ""}
+                    type="text"
+                  ></Input>
+                </GridCell>
+                <GridCell>
+                  <label htmlFor="user-city">City:</label>
+                  <Input
+                    id="user-city"
+                    name="city"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.city || ""}
+                    type="text"
+                  ></Input>
+                  <label htmlFor="user-state">State:</label>
+                  <Input
+                    id="user-state"
+                    name="state"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.state || ""}
+                    type="text"
+                  ></Input>
+                  <label htmlFor="user-zipcode">Zip Code:</label>
+                  <Input
+                    id="user-zipcode"
+                    name="zipcode"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.zipcode || ""}
+                    type="text"
+                  ></Input>
+                  <label htmlFor="user-image">Image:</label>
+                  <Input
+                    id="user-image"
+                    name="image"
+                    onChange={this.handleChange}
+                    value={this.state.currentUser.image || ""}
+                    type="text"
+                  ></Input>
+                </GridCell>
+              </Grid>
             </GridCell>
-          }
+          ) : (
+            <GridCell>
+              <H4 style={{ marginBottom: "0.5em" }}>
+                {this.state.currentUser.name}
+              </H4>
+
+              <p style={{ color: grey2, marginBottom: "2em" }}>
+                User Description: {this.state.currentUser.description}
+              </p>
+              <p style={{ color: grey2, marginBottom: "2em" }}>
+                Email Address: {this.state.currentUser.email}
+              </p>
+              <p style={{ color: grey2, marginBottom: "2em" }}>
+                Shipping Address: {this.state.currentUser.addressLine1}{" "}
+                {this.state.currentUser.addressLine2},{" "}
+                {this.state.currentUser.city}, {this.state.currentUser.state}{" "}
+                {this.state.currentUser.zipcode}
+              </p>
+            </GridCell>
+          )}
         </Grid>
 
         {/* Buttons */}
         <Grid>
-          <GridCell style={{ flex: '' , textAlign: 'center', marginBottom: '2em' }}>
-            {this.props.showForm ?
-              <Button theme="secondary" onClick={this.handleSubmit} style={{ marginRight: '1em' }}>Save Profile</Button> :
-              <Button theme="secondary" onClick={this.props.toggleForm} style={{ marginRight: '1em' }}>Update Profile</Button>
-            }
+          <GridCell
+            style={{ flex: "", textAlign: "center", marginBottom: "2em" }}
+          >
+            {this.props.showForm ? (
+              <Button
+                theme="secondary"
+                onClick={this.handleSubmit}
+                style={{ marginRight: "1em" }}
+              >
+                Save Profile
+              </Button>
+            ) : (
+              <Button
+                theme="secondary"
+                onClick={this.props.toggleForm}
+                style={{ marginRight: "1em" }}
+              >
+                Update Profile
+              </Button>
+            )}
 
             <Link to={userRoutes.subscriptions.path}>
               <Button theme="primary">Subscriptions</Button>
             </Link>
 
-            <Button theme="secondary" onClick={this.props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
+            <Button
+              theme="secondary"
+              onClick={this.props.logout}
+              style={{ marginLeft: "1em" }}
+            >
+              Logout
+            </Button>
           </GridCell>
         </Grid>
 
         {/* Bottom title bar */}
         <Grid style={{ backgroundColor: grey }}>
-          <GridCell style={{ padding: '2em', textAlign: 'center' }}>
+          <GridCell style={{ padding: "2em", textAlign: "center" }}>
             <H3 font="secondary">My orders</H3>
           </GridCell>
         </Grid>
@@ -256,17 +323,31 @@ class Profile extends PureComponent {
         <Grid>
           <GridCell>
             {/* Card for each subscription crate - map through each in list array */}
-            <H4 font='primary' style={{ margin: '2rem' }}>Current Orders</H4>
+            <H4 font="primary" style={{ margin: "2rem" }}>
+              Current Orders
+            </H4>
             <Grid>
               <GridCell>
-                {this.props.subscriptions &&
-                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
-                    <p style={{ padding: '2em 3em 0 3em' }}>
-                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
+                {this.props.subscriptions && (
+                  <Card
+                    style={{
+                      width: "18em",
+                      backgroundColor: white,
+                      margin: "auto",
+                    }}
+                  >
+                    <p style={{ padding: "2em 3em 0 3em" }}>
+                      <img
+                        src={`${APP_URL}/images/crate.png`}
+                        alt={this.props.subscriptions.crate.name}
+                        style={{ width: "100%" }}
+                      />
                     </p>
 
-                    <div style={{ padding: '1em 1.2em' }}>
-                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
+                    <div style={{ padding: "1em 1.2em" }}>
+                      <H4 font="secondary" style={{ color: black }}>
+                        {this.props.subscriptions.crate.name}
+                      </H4>
 
                       <p>Order Number: {this.props.subscriptions.createdAt}</p>
                       {/* shipping address confirmed if user.shippingAddress has value */}
@@ -274,28 +355,46 @@ class Profile extends PureComponent {
                       <p>Items in Crate: 3</p>
                       <p>Delivery Date: </p>
 
-                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
+                      <p
+                        style={{
+                          textAlign: "center",
+                          marginTop: "1.5em",
+                          marginBottom: "1em",
+                        }}
+                      >
                         <Button
                           theme="secondary"
-                          onClick={() => console.log('Update date')}
+                          onClick={() => console.log("Update date")}
                           type="button"
-                          >
+                        >
                           Update Shipping Date
                         </Button>
                       </p>
                     </div>
                   </Card>
-                }
+                )}
               </GridCell>
               <GridCell>
-                {this.props.subscriptions &&
-                  <Card style={{ width: '18em', backgroundColor: white, margin: 'auto' }}>
-                    <p style={{ padding: '2em 3em 0 3em' }}>
-                      <img src={`${ APP_URL }/images/crate.png`} alt={ this.props.subscriptions.crate.name } style={{ width: '100%' }}/>
+                {this.props.subscriptions && (
+                  <Card
+                    style={{
+                      width: "18em",
+                      backgroundColor: white,
+                      margin: "auto",
+                    }}
+                  >
+                    <p style={{ padding: "2em 3em 0 3em" }}>
+                      <img
+                        src={`${APP_URL}/images/crate.png`}
+                        alt={this.props.subscriptions.crate.name}
+                        style={{ width: "100%" }}
+                      />
                     </p>
 
-                    <div style={{ padding: '1em 1.2em' }}>
-                      <H4 font="secondary" style={{ color: black }}>{ this.props.subscriptions.crate.name }</H4>
+                    <div style={{ padding: "1em 1.2em" }}>
+                      <H4 font="secondary" style={{ color: black }}>
+                        {this.props.subscriptions.crate.name}
+                      </H4>
 
                       <p>Order Number: {this.props.subscriptions.createdAt}</p>
                       {/* shipping address confirmed if user.shippingAddress has value */}
@@ -303,18 +402,24 @@ class Profile extends PureComponent {
                       <p>Items in Crate: 3</p>
                       <p>Delivery Date: </p>
 
-                      <p style={{ textAlign: 'center', marginTop: '1.5em', marginBottom: '1em' }}>
+                      <p
+                        style={{
+                          textAlign: "center",
+                          marginTop: "1.5em",
+                          marginBottom: "1em",
+                        }}
+                      >
                         <Button
                           theme="secondary"
-                          onClick={() => console.log('Update date')}
+                          onClick={() => console.log("Update date")}
                           type="button"
-                          >
+                        >
                           Update Shipping Date
                         </Button>
                       </p>
                     </div>
                   </Card>
-                }
+                )}
               </GridCell>
             </Grid>
           </GridCell>
@@ -323,10 +428,10 @@ class Profile extends PureComponent {
         {/* Past Orders */}
         <Grid>
           <GridCell>
-            <H4 font='primary' style={{ margin: '2rem' }}>Past Orders</H4>
-            <Grid>
-              {products}
-            </Grid>
+            <H4 font="primary" style={{ margin: "2rem" }}>
+              Past Orders
+            </H4>
+            <Grid>{products}</Grid>
           </GridCell>
         </Grid>
       </div>
@@ -350,4 +455,11 @@ function profileState(state) {
   }
 }
 
-export default connect(profileState, { getListByUser, toggleForm, logout })(Profile)
+export default connect(profileState, {
+  getListByUser,
+  toggleForm,
+  logout,
+  updateUser,
+  messageHide,
+  messageShow
+})(Profile)
