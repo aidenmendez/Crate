@@ -428,6 +428,5 @@ export default connect(profileState, {
   logout,
   updateUser,
   messageHide,
-  messageShow,
-  loginSetUserLocalStorageAndCookie,
+  messageShow
 })(Profile)
