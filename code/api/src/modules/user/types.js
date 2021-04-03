@@ -3,8 +3,8 @@ import { GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql'
 
 // User type
 const UserType = new GraphQLObjectType({
-  name: 'user',
-  description: 'User type',
+  name: "user",
+  description: "User type",
 
   fields: () => ({
     id: { type: GraphQLInt },
@@ -19,9 +19,9 @@ const UserType = new GraphQLObjectType({
     addressLine2: { type: GraphQLString },
     city: { type: GraphQLString },
     state: { type: GraphQLString },
-    zipcode: { type: GraphQLInt },
-    image: { type: GraphQLString }
-  })
+    zipcode: { type: GraphQLString },
+    image: { type: GraphQLString },
+  }),
 })
 
 // User Login type

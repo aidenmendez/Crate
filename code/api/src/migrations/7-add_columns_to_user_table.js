@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       });
       await queryInterface.addColumn('users', 'zipcode', {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       });
       await queryInterface.addColumn('users', 'image', {
         type: Sequelize.STRING
