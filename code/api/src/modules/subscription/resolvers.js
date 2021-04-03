@@ -59,3 +59,17 @@ export async function remove(parentValue, { id }, { auth }) {
     throw new Error('Access denied.')
   }
 }
+
+// update subscription
+export async function update(parentValue, { id, deliveryDate }, { auth }) {
+  if(auth.user && auth.user.role === params.user.roles.admin) {
+    return await models.Subscription.update(
+      {
+        deliveryDate
+      },
+      {where: {id}}
+    )
+  } else {
+    throw new Error('Operation denied.')
+  }
+}
