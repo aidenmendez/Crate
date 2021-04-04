@@ -115,6 +115,13 @@ Click on image to view fullscreen and zoom
   - Run API `cd api` and `npm start`, browse GraphiQL at http://localhost:8000/
   - Run Webapp `cd web` and `npm start`, browse webapp at http://localhost:3000/
   - Run Mobile `cd mobile` and `npx react-native run-ios` for iOS and `npx react-native run-android` for Android
+
+- Testing (Webapp User Profile)
+ - Run API `cd api` and `npm start`
+ - Run Webapp `cd web` and `npm start`,
+ - Run Cypress in web directory `cd web` and `npx cypress open`
+ *NOTE: User must have no subscriptions for the tests to run correctly. If user@crate.com has subscriptions, simply unsubscribing from all crates and re running tests will correct the test flow.*
+
 - Production
   - Run API `cd api` and `npm run start:prod`, creates an optimized build in `build` directory and runs the server
   - Run Webapp `cd web` and `npm run start:prod`, creates an optimized build in `build` directory and runs the server
@@ -162,6 +169,11 @@ Click on image to view fullscreen and zoom
 - Mateus Abdala - [GitHub](https://github.com/mateusabdala)
 - Hossein Nedaee - [GitHub](https://github.com/hosseinnedaee)
 - Mohammad Afzal - [GitHub](https://github.com/afzalex)
+- Aiden Mendez - [GitHub](https://github.com/aidenmendez)
+- Vanessa Arruda - [GitHub](https://github.com/nessaarruda)
+- Elsa Fluss - [GitHub](https://github.com/elsafluss)
+- Alia Peterson - [GitHub](https://github.com/alia-peterson)
+- Matthew Dean - [GitHub](https://github.com/mattdeann)
 - [YOUR NAME HERE] - Feel free to contribute to the codebase by resolving any open issues, refactoring, adding new features, writing test cases or any other way to make the project better and helpful to the community. Feel free to fork and send pull requests.
 
 
