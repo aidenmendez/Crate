@@ -52,6 +52,8 @@ Click on image to view fullscreen and zoom
 
 ![Crate Tablet](https://raw.githubusercontent.com/atulmy/atulmy.github.io/master/images/crate/tablet-all-with-link.png)
 
+## Database Design
+![database design diagram](https://user-images.githubusercontent.com/41342981/113539800-d3c05980-959b-11eb-9e01-243fc06de9bb.png)
 
 ## Core Structure
     code
